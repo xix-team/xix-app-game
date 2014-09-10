@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>宠物大营救</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    html,
+    body {
+        background: #333333;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    #content {
+        width: 100%;
+        height: 100%;
+        margin: 0px auto 1px auto;
+    }
+    @media (max-device-width: 8in),
+    (max-device-height: 8in) {
+        html {
+            overflow: hidden;
+        }
+        html,
+        body {
+            height: 100%;
+        }
+        #content {
+            height: 100%;
+            width: 100%;
+            margin: inherit;
+        }
+        .no-mobile {
+            display: none;
+        }
+    }
+    </style>
+</head>
+
+<body onload="startGame()">
+    <div id="content"></div>
+    <script src="flambe.js"></script>
+    <script type="text/javascript">
+    function startGame() {
+        flambe.embed(["targets/main-html.js"], "content");
+    }
+    </script>
+    <script language=javascript>
+    var mebtnopenurl = 'http://game.asoiso.com/index.html';
+    window.shareData = {
+        "imgUrl": "http://game.asoiso.com/cwdyj/icon.png",
+        "timeLineLink": "http://game.asoiso.com/cwdyj/game.html?f=zf",
+        "tTitle": "宠物大营救",
+        "tContent": "超可爱的消除方块类游戏，考验你的智慧救出受困的宠物吧！"
+    };
+
+    function goHome() {
+        window.location = mebtnopenurl;
+    }
+
+    function clickMore() {
+        if ((window.location + "").indexOf("f=zf", 1) > 0) {
+            window.location = "http://game.asoiso.com/goto9g.html?f=cwdyj";
+        } else {
+            goHome();
+        }
+    }
+
+    function dp_share() {
+        document.getElementById("share").style.display = "";
+
+    }
+
+    function dp_Ranking() {
+        window.location = mebtnopenurl;
+    }
+
+    function showAd() {}
+
+    function hideAd() {}
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+
+        WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+            WeixinJSBridge.invoke('sendAppMessage', {
+                "img_url": window.shareData.imgUrl,
+                "link": window.shareData.timeLineLink,
+                "desc": window.shareData.tContent,
+                "title": window.shareData.tTitle
+            }, onShareComplete);
+        });
+
+        WeixinJSBridge.on('menu:share:timeline', function(argv) {
+            WeixinJSBridge.invoke('shareTimeline', {
+                "img_url": window.shareData.imgUrl,
+                "img_width": "640",
+                "img_height": "640",
+                "link": window.shareData.timeLineLink,
+                "desc": window.shareData.tContent,
+                "title": window.shareData.tTitle
+            }, onShareComplete);
+        });
+    }, false);
+    </script>
+    <div id=share style="display: none">
+        <img width="100%" src="http://game.asoiso.com/share.png" style="position: fixed; z-index: 9999; top: 0; left: 0; display: " ontouchstart="document.getElementById('share').style.display='none';" />
+    </div>
+    <script type="text/javascript">
+    var myData = {
+        gameid: "cwdyj"
+    };
+
+    function dp_submitScore(score, nlevel) {
+        myData.score = parseInt(nlevel);
+        myData.scoreName = "闯了" + nlevel + "关";
+        document.title = window.shareData.tTitle = "我在玩宠物大营救闯到了第" + nlevel + "关，紧张又刺激好爽啊!快来一起拯救宠物吧!";
+    }
+
+    function onShareComplete(res) {
+        return;
+        if (localStorage.myuid && myData.score != undefined) {
+            setTimeout(function() {
+                if (confirm("要将成绩提交到游戏排行榜吗？")) {
+                    window.location = "http://game.asoiso.com/rank/submit2.jsp?gameid=" + myData.gameid + "&uid=" + localStorage.myuid + "&score=" + myData.score + "&scorename=" + encodeURIComponent(myData.scoreName);
+                } else {
+                    document.location.href = mebtnopenurl;
+                }
+            }, 500);
+        } else {
+            document.location.href = mebtnopenurl;
+        }
+    }
+    </script>
+</body>
+
+</html>
